@@ -1,7 +1,10 @@
 module.exports = function(app) {
-  let user = require('../controllers/users/register');
+  let registUser = require('../controllers/register');
+  let userLogin = require('../controllers/login');
 
-  // todoList Routes
   app.route('/register')
-    .post(user.registerUser);
+    .post(registUser.registerUser);
+  
+  app.route('/login')
+    .post(userLogin.loginUser);
 };

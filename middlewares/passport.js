@@ -13,8 +13,12 @@ passport.use(new LocalStrategy({
     const passwordMatches = user && await bcrypt.compareSync(String(password), user.password);
 
     // Nếu không tìm thấy user hoặc mật khẩu không chính xác, trả về false
-    if (!user || !passwordMatches) {
-      return done(null, false, { message: 'Incorrect email or password.' });
+    if (!user) {
+      return done(null, false, { message: 'Invalid user' });
+    }
+
+    if (!passwordMatches) {
+      return done(null, false, { message: 'Incorrect password' });
     }
 
     // Nếu tìm thấy user và mật khẩu chính xác, trả về user

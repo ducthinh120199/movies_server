@@ -7,7 +7,11 @@ const registerUser = async (req, res) => {
   try {
     let hasUser = await getUserByEmail(email);
     if (hasUser) {
-      res.status(400).send({ error: true, message: "Email exits!" });
+      res.status(400).send({ 
+        error: {
+          message: "Email exits!"
+        } 
+      });
     }
 
     const hashPassword = await bcrypt.hash(password, 10);

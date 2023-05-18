@@ -9,8 +9,11 @@ const loginUser = async (req, res, next) => {
       if (err) {
         return next(err);
       }
+      
       if (!user) {
-        return res.status(401).send({ message: info.message });
+        return res.status(401).send({ 
+          error: info.message
+        });
       }
   
       // Tạo token
@@ -23,11 +26,12 @@ const loginUser = async (req, res, next) => {
       // Gửi kết quả trả về
       return res.status(200).send({
         success: {
-          message: "Authentication success!"
+          message: "Login successful"
         },
         body: {
-          token: req.session.token,
-          expires: req.session.expires
+          access_token: req.session.token,
+          expires_in: req.session.expires,
+          token_type: "Bearer"
         }
       })
     })(req, res, next);
